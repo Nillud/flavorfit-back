@@ -5,6 +5,8 @@ import { PrismaModule } from 'src/prisma/prisma.module'
 import { JwtModule } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
 import { getJwtConfig } from 'src/config/jwt.config'
+import { UsersService } from 'src/users/users.service'
+import { UsersModule } from 'src/users/users.module'
 
 @Module({
 	imports: [
@@ -13,8 +15,9 @@ import { getJwtConfig } from 'src/config/jwt.config'
 			imports: [PrismaModule],
 			inject: [ConfigService],
 			useFactory: getJwtConfig
-		})
+		}),
+		UsersModule
 	],
-	providers: [AuthService, AuthResolver]
+	providers: [AuthService, AuthResolver, UsersService]
 })
 export class AuthModule {}
