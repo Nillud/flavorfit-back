@@ -9,6 +9,18 @@ export class UsersService {
 		return this.prisma.user.findMany()
 	}
 
+	async findById(id: string) {
+		return this.prisma.user.findUnique({
+			where: {
+				id
+			},
+			include: {
+				profile: true,
+				bodyMeasurement: true
+			}
+		})
+	}
+
 	async findByEmail(email: string) {
 		return await this.prisma.user.findFirst({
 			where: {
