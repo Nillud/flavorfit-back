@@ -60,6 +60,26 @@ export class AuthService {
 		return { user, ...tokens }
 	}
 
+	async getNewTokens(refreshToken: string) {
+		const result =
+			await this.jwt.verifyAsync<Pick<IAuthTokenData, 'id'>>(refreshToken)
+		if (!result) throw new BadRequestException('Invalid refresh token')
+
+		const user = await this.usersService.findById(result.id)
+
+		if (!user) throw new NotFoundException('User not found')
+
+		const tokens = this._generateTokens({
+			id: user.id,
+			role: user.role
+		})
+
+		return {
+			user,
+			...tokens
+		}
+	}
+
 	private async _validateUser(input: AuthInput) {
 		const email = input.email
 

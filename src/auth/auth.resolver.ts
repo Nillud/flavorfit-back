@@ -1,8 +1,9 @@
-import { Args, Context, Mutation, Resolver } from '@nestjs/graphql'
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { AuthService } from './auth.service'
 import { AuthInput } from './auth.input'
 import { AuthResponse } from './auth.interface'
 import type { IGqlContext } from 'src/app.interface'
+import { BadRequestException } from '@nestjs/common'
 
 @Resolver()
 export class AuthResolver {
@@ -27,5 +28,37 @@ export class AuthResolver {
 		this.authService.toggleRefreshTokenCookie(res, refreshToken)
 
 		return response
+	}
+
+	@Query(() => AuthResponse)
+	async newTokens(@Context() { req, res }: IGqlContext) {
+		const initialRefreshToken =
+			req.cookies?.[this.authService.REFRESH_TOKEN_NAME]
+
+		if (!initialRefreshToken) {
+			this.authService.toggleRefreshTokenCookie(res, null)
+			throw new BadRequestException('Refresh token is missing')
+		}
+
+		const { refreshToken, ...response } =
+			await this.authService.getNewTokens(initialRefreshToken)
+
+		this.authService.toggleRefreshTokenCookie(res, refreshToken)
+
+		return response
+	}
+
+	@Mutation(() => Boolean)
+	logout(@Context() { res, req }: IGqlContext) {
+		const initialRefreshToken = req.cookies[this.authService.REFRESH_TOKEN_NAME]
+
+		if (!initialRefreshToken) {
+			this.authService.toggleRefreshTokenCookie(res, null)
+			throw new BadRequestException('Refresh token is missing')
+		}
+
+		this.authService.toggleRefreshTokenCookie(res, null)
+
+		return true
 	}
 }
