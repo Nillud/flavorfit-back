@@ -5,7 +5,7 @@ model User {
     role     Role   @default(USER)
 
     profile         Profile?
-    bodyMeasurement BodyMeasurement?
+    measurement BodyMeasurement?
 
     recipes  Recipe[]
     comments Comment[]

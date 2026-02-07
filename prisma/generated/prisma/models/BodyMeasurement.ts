@@ -397,7 +397,7 @@ export type BodyMeasurementCreateInput = {
   nutritionGoal?: $Enums.NutritionGoal | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutBodyMeasurementInput
+  user: Prisma.UserCreateNestedOneWithoutMeasurementInput
 }
 
 export type BodyMeasurementUncheckedCreateInput = {
@@ -429,7 +429,7 @@ export type BodyMeasurementUpdateInput = {
   nutritionGoal?: Prisma.NullableEnumNutritionGoalFieldUpdateOperationsInput | $Enums.NutritionGoal | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutBodyMeasurementNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutMeasurementNestedInput
 }
 
 export type BodyMeasurementUncheckedUpdateInput = {

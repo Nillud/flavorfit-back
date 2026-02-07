@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { hash } from 'argon2'
 import type { Prisma } from 'prisma/generated/prisma/client'
-import type { UserUpdateInput } from 'prisma/generated/prisma/models'
 import { PrismaService } from 'src/prisma/prisma.service'
+import type { UserUpdateInput } from './inputs/user-update.input'
 
 @Injectable()
 export class UsersService {
@@ -19,7 +19,7 @@ export class UsersService {
 			},
 			include: {
 				profile: true,
-				bodyMeasurement: true
+				measurement: true
 			}
 		})
 	}
@@ -36,7 +36,7 @@ export class UsersService {
 	}
 
 	async updateProfile(id: string, input: UserUpdateInput) {
-		const { profile, bodyMeasurement, password, ...data } = input
+		const { profile, measurement, password, ...data } = input
 
 		const isUser = await this.findById(id)
 
@@ -59,12 +59,12 @@ export class UsersService {
 		const updateMeasurement: Prisma.XOR<
 			Prisma.UserUpdateInput,
 			Prisma.UserUncheckedUpdateInput
-		> = bodyMeasurement
+		> = measurement
 			? {
-					bodyMeasurement: {
+					measurement: {
 						upsert: {
-							create: bodyMeasurement,
-							update: bodyMeasurement
+							create: measurement,
+							update: measurement
 						}
 					}
 				}
@@ -86,7 +86,7 @@ export class UsersService {
 				email: data.email
 			},
 			include: {
-				bodyMeasurement: true,
+				measurement: true,
 				profile: true
 			}
 		})
