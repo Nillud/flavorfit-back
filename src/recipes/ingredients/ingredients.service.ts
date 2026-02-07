@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
-import type { IngredientCreateInput } from './inputs/create-ingredient.input'
+import { IngredientCreateInput } from './inputs/create-ingredient.input'
 
 @Injectable()
 export class IngredientsService {

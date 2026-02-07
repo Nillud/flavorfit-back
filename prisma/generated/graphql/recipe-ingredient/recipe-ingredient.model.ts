@@ -25,11 +25,8 @@ export class RecipeIngredient {
     @Field(() => Float, {nullable:false})
     quantity!: number;
 
-    @Field(() => Unit, {nullable:false})
+    @Field(() => Unit, {defaultValue:'GRAM',nullable:false})
     unit!: `${Unit}`;
-
-    @Field(() => String, {nullable:false})
-    price!: string;
 
     @Field(() => String, {nullable:false})
     recipeId!: string;

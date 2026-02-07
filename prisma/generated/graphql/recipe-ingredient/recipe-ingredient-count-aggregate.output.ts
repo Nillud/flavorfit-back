@@ -24,9 +24,6 @@ export class RecipeIngredientCountAggregate {
     unit!: number;
 
     @Field(() => Int, {nullable:false})
-    price!: number;
-
-    @Field(() => Int, {nullable:false})
     recipeId!: number;
 
     @Field(() => Int, {nullable:false})

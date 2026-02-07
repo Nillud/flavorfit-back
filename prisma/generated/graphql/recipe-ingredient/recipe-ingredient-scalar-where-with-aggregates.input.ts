@@ -36,9 +36,6 @@ export class RecipeIngredientScalarWhereWithAggregatesInput {
     unit?: EnumUnitWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
-    price?: StringWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
     recipeId?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})

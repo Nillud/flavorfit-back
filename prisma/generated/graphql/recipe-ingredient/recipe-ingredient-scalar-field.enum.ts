@@ -7,7 +7,6 @@ export enum RecipeIngredientScalarFieldEnum {
     content = "content",
     quantity = "quantity",
     unit = "unit",
-    price = "price",
     recipeId = "recipeId",
     ingredientId = "ingredientId",
     createdAt = "createdAt",

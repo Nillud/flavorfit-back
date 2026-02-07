@@ -26,9 +26,6 @@ export class RecipeIngredientUpdateWithoutIngredientInput {
     @Field(() => Unit, {nullable:true})
     unit?: `${Unit}`;
 
-    @Field(() => String, {nullable:true})
-    price?: string;
-
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 

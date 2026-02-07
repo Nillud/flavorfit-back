@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { RecipeCreateNestedOneWithoutLikeInput } from '../recipe/recipe-create-nested-one-without-like.input';
+import { RecipeCreateNestedOneWithoutLikesInput } from '../recipe/recipe-create-nested-one-without-likes.input';
 
 @InputType()
 export class LikeCreateWithoutUserInput {
@@ -14,6 +14,6 @@ export class LikeCreateWithoutUserInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => RecipeCreateNestedOneWithoutLikeInput, {nullable:false})
-    recipe!: RecipeCreateNestedOneWithoutLikeInput;
+    @Field(() => RecipeCreateNestedOneWithoutLikesInput, {nullable:false})
+    recipe!: RecipeCreateNestedOneWithoutLikesInput;
 }

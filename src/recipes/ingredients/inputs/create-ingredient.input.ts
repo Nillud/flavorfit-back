@@ -8,4 +8,10 @@ export class IngredientCreateInput {
 
 	@Field(() => Unit, { nullable: true })
 	defaultUnit: `${Unit}`
+
+	@Field(() => String, { nullable: false })
+	iconUrl!: string
+
+	@Field(() => String, { nullable: false })
+	content!: string
 }

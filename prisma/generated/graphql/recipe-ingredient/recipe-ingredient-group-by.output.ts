@@ -30,9 +30,6 @@ export class RecipeIngredientGroupBy {
     unit!: `${Unit}`;
 
     @Field(() => String, {nullable:false})
-    price!: string;
-
-    @Field(() => String, {nullable:false})
     recipeId!: string;
 
     @Field(() => String, {nullable:false})

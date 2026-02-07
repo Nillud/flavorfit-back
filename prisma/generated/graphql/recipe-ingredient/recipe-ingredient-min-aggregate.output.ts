@@ -25,9 +25,6 @@ export class RecipeIngredientMinAggregate {
     unit?: `${Unit}`;
 
     @Field(() => String, {nullable:true})
-    price?: string;
-
-    @Field(() => String, {nullable:true})
     recipeId?: string;
 
     @Field(() => String, {nullable:true})

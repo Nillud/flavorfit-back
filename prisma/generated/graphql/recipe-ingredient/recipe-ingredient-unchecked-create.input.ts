@@ -22,11 +22,8 @@ export class RecipeIngredientUncheckedCreateInput {
     @Field(() => Float, {nullable:false})
     quantity!: number;
 
-    @Field(() => Unit, {nullable:false})
-    unit!: `${Unit}`;
-
-    @Field(() => String, {nullable:false})
-    price!: string;
+    @Field(() => Unit, {nullable:true})
+    unit?: `${Unit}`;
 
     @Field(() => String, {nullable:false})
     recipeId!: string;

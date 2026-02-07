@@ -27,9 +27,6 @@ export class RecipeIngredientOrderByWithRelationInput {
     unit?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    price?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
     recipeId?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})

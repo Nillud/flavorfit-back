@@ -24,9 +24,6 @@ export class RecipeIngredientCountOrderByAggregateInput {
     unit?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    price?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
     recipeId?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})

@@ -26,9 +26,6 @@ export class RecipeIngredientUncheckedUpdateWithoutRecipeInput {
     unit?: `${Unit}`;
 
     @Field(() => String, {nullable:true})
-    price?: string;
-
-    @Field(() => String, {nullable:true})
     ingredientId?: string;
 
     @Field(() => Date, {nullable:true})

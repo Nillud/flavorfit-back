@@ -39,9 +39,6 @@ export class RecipeIngredientWhereInput {
     unit?: EnumUnitFilter;
 
     @Field(() => StringFilter, {nullable:true})
-    price?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
     recipeId?: StringFilter;
 
     @Field(() => StringFilter, {nullable:true})

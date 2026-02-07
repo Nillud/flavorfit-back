@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { SortOrderInput } from '../prisma/sort-order.input';
 import { IngredientCountOrderByAggregateInput } from './ingredient-count-order-by-aggregate.input';
 import { IngredientMaxOrderByAggregateInput } from './ingredient-max-order-by-aggregate.input';
 import { IngredientMinOrderByAggregateInput } from './ingredient-min-order-by-aggregate.input';
@@ -15,8 +14,11 @@ export class IngredientOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     name?: `${SortOrder}`;
 
-    @Field(() => SortOrderInput, {nullable:true})
-    defaultUnit?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    iconUrl?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    content?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;

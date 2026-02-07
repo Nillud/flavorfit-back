@@ -23,9 +23,6 @@ export class RecipeIngredientCountAggregateInput {
     unit?: true;
 
     @Field(() => Boolean, {nullable:true})
-    price?: true;
-
-    @Field(() => Boolean, {nullable:true})
     recipeId?: true;
 
     @Field(() => Boolean, {nullable:true})

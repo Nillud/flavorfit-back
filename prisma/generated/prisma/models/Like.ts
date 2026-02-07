@@ -237,7 +237,7 @@ export type LikeCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutLikesInput
-  recipe: Prisma.RecipeCreateNestedOneWithoutLikeInput
+  recipe: Prisma.RecipeCreateNestedOneWithoutLikesInput
 }
 
 export type LikeUncheckedCreateInput = {
@@ -253,7 +253,7 @@ export type LikeUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutLikesNestedInput
-  recipe?: Prisma.RecipeUpdateOneRequiredWithoutLikeNestedInput
+  recipe?: Prisma.RecipeUpdateOneRequiredWithoutLikesNestedInput
 }
 
 export type LikeUncheckedUpdateInput = {
@@ -464,7 +464,7 @@ export type LikeCreateWithoutUserInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  recipe: Prisma.RecipeCreateNestedOneWithoutLikeInput
+  recipe: Prisma.RecipeCreateNestedOneWithoutLikesInput
 }
 
 export type LikeUncheckedCreateWithoutUserInput = {
@@ -539,7 +539,7 @@ export type LikeUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recipe?: Prisma.RecipeUpdateOneRequiredWithoutLikeNestedInput
+  recipe?: Prisma.RecipeUpdateOneRequiredWithoutLikesNestedInput
 }
 
 export type LikeUncheckedUpdateWithoutUserInput = {

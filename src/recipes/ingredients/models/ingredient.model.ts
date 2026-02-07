@@ -11,6 +11,12 @@ export class IngredientModel {
 	@Field(() => String, { nullable: false })
 	name!: string
 
+	@Field(() => String, { nullable: false })
+	iconUrl!: string
+
+	@Field(() => String, { nullable: false })
+	content!: string
+
 	@Field(() => Unit, { nullable: false })
 	defaultUnit!: `${Unit}`
 

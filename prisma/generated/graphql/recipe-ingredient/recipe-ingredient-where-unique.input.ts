@@ -49,9 +49,6 @@ export class RecipeIngredientWhereUniqueInput {
     @Field(() => EnumUnitFilter, {nullable:true})
     unit?: EnumUnitFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    price?: StringFilter;
-
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
 
