@@ -14,8 +14,8 @@ export class IngredientGroupBy {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => Unit, {nullable:false})
-    defaultUnit!: `${Unit}`;
+    @Field(() => Unit, {nullable:true})
+    defaultUnit?: `${Unit}`;
 
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;

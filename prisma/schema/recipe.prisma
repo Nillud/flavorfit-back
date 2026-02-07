@@ -21,20 +21,6 @@ model Recipe {
     @@map("recipes")
 }
 
-model Ingredient {
-    id String @id @default(cuid())
-
-    name        String
-    defaultUnit Unit   @map("default_unit")
-
-    recipes RecipeIngredient[]
-
-    createdAt DateTime @default(now()) @map("created_at")
-    updatedAt DateTime @default(now()) @map("updated_at")
-
-    @@map("ingredients")
-}
-
 model RecipeIngredient {
     id String @id @default(cuid())
 
@@ -74,15 +60,6 @@ model RecipeStep {
     updatedAt DateTime @default(now()) @map("updated_at")
 
     @@map("recipe_steps")
-}
-
-enum Unit {
-    GRAM // г
-    MILLILITER // мл
-    PIECE // шт.
-    TEASPOON // ч. ложка
-    TABLESPOON // ст. ложка
-    CLOVES // зубчик
 }
 
 enum Difficulty {

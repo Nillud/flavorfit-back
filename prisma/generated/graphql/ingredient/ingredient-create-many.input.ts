@@ -11,8 +11,8 @@ export class IngredientCreateManyInput {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => Unit, {nullable:false})
-    defaultUnit!: `${Unit}`;
+    @Field(() => Unit, {nullable:true})
+    defaultUnit?: `${Unit}`;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;

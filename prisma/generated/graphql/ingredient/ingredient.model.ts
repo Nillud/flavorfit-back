@@ -13,8 +13,8 @@ export class Ingredient {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => Unit, {nullable:false})
-    defaultUnit!: `${Unit}`;
+    @Field(() => Unit, {defaultValue:'GRAM',nullable:true})
+    defaultUnit!: `${Unit}` | null;
 
     @Field(() => Date, {nullable:false})
     createdAt!: Date;
@@ -23,5 +23,5 @@ export class Ingredient {
     updatedAt!: Date;
 
     @Field(() => [RecipeIngredient], {nullable:true})
-    recipes?: Array<RecipeIngredient>;
+    recipeIngredients?: Array<RecipeIngredient>;
 }
