@@ -29,8 +29,6 @@ model Recipe {
 model RecipeIngredient {
     id String @id @default(cuid())
 
-    name String
-
     quantity Decimal
     unit     Unit    @default(GRAM)
 

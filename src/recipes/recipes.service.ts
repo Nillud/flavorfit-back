@@ -14,7 +14,14 @@ export class RecipesService {
 	async getBySlug(slug: string) {
 		const recipe = await this.prisma.recipe.findUnique({
 			where: { slug },
-			include: { recipeSteps: true, recipeIngredients: true }
+			include: {
+				recipeSteps: true,
+				recipeIngredients: {
+					include: {
+						ingredient: true
+					}
+				}
+			}
 		})
 		if (!recipe)
 			throw new NotFoundException(`recipe with slug ${slug} not found`)
