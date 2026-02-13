@@ -6,6 +6,7 @@ import { RecipeModel } from './models/recipe.model'
 import { AdminRecipesService } from './admin-rescipes.service'
 import { RecipeInput } from './inputs/recipe.input'
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator'
+import type { RecipesQueryInput } from './inputs/get-recipes-query.input'
 
 @Resolver()
 export class RecipesResolver {
@@ -16,8 +17,8 @@ export class RecipesResolver {
 
 	@Query(() => [RecipeModel], { name: 'recipes' })
 	@Auth()
-	getAll() {
-		return this.recipesService.getAll()
+	getAll(@Args('input') input: RecipesQueryInput) {
+		return this.recipesService.getAll(input)
 	}
 
 	@Query(() => [RecipeModel], { name: 'recipeBySlug' })
