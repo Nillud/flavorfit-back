@@ -4,6 +4,7 @@ model Ingredient {
     name    String
     iconUrl String @map("icon_url")
     content String
+    price Decimal
 
     recipeIngredients RecipeIngredient[]
 

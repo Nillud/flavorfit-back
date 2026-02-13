@@ -1,28 +1,26 @@
 import { Field } from '@nestjs/graphql'
 import { ObjectType } from '@nestjs/graphql'
 import { ID } from '@nestjs/graphql'
-import { Unit } from 'src/recipes/enums/recipe.enum'
+import { OrderStatus } from '../enums/order.enums'
+import { OrderItemModel } from './order-item.model'
 
 @ObjectType()
-export class IngredientModel {
+export class OrderModel {
 	@Field(() => ID, { nullable: false })
 	id!: string
 
 	@Field(() => String, { nullable: false })
-	name!: string
+	orderId!: string
 
-	@Field(() => String, { nullable: false })
-	iconUrl!: string
-
-	@Field(() => String, { nullable: false })
-	content!: string
-
-	@Field(() => Unit, { nullable: false })
-	defaultUnit!: `${Unit}`
+	@Field(() => OrderStatus, { defaultValue: 'PENDING', nullable: false })
+	status!: `${OrderStatus}`
 
 	@Field(() => Date, { nullable: false })
 	createdAt!: Date
 
 	@Field(() => Date, { nullable: false })
 	updatedAt!: Date
+
+	@Field(() => [OrderItemModel], { nullable: false })
+	items?: OrderItemModel[]
 }
