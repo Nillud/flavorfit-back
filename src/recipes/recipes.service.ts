@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
+import { Prisma } from 'prisma/generated/client'
 import { PrismaService } from 'src/prisma/prisma.service'
-import type { RecipesQueryInput } from './inputs/get-recipes-query.input'
-import { Prisma } from 'prisma/generated/prisma/client'
+import { RecipesQueryInput } from './inputs/get-recipes-query.input'
 
 @Injectable()
 export class RecipesService {
@@ -10,7 +10,7 @@ export class RecipesService {
 	async getAll({ page, limit, searchTerm, sort }: RecipesQueryInput) {
 		const skip = (page - 1) * limit
 
-		const data = await this.prisma.recipe.findMany({
+		return this.prisma.recipe.findMany({
 			skip,
 			take: limit,
 
@@ -23,10 +23,7 @@ export class RecipesService {
 							recipeIngredients: {
 								some: {
 									ingredient: {
-										name: {
-											contains: searchTerm,
-											mode: 'insensitive'
-										}
+										name: { contains: searchTerm, mode: 'insensitive' }
 									}
 								}
 							}
@@ -38,12 +35,11 @@ export class RecipesService {
 			orderBy: this.getOrderBy(sort),
 
 			include: {
-				comments: true,
-				likes: true
+				_count: {
+					select: { likes: true }
+				}
 			}
 		})
-
-		return data
 	}
 
 	private getOrderBy(sort?: string) {
@@ -61,7 +57,9 @@ export class RecipesService {
 
 	async getBySlug(slug: string) {
 		const recipe = await this.prisma.recipe.findUnique({
-			where: { slug },
+			where: {
+				slug
+			},
 			include: {
 				recipeSteps: true,
 				recipeIngredients: {
@@ -71,8 +69,11 @@ export class RecipesService {
 				}
 			}
 		})
-		if (!recipe)
+
+		if (!recipe) {
 			throw new NotFoundException(`recipe with slug ${slug} not found`)
+		}
+
 		return recipe
 	}
 }

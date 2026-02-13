@@ -2,8 +2,8 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { TRequestWithUser } from '../auth.interface'
-import { Role } from 'prisma/generated/prisma/enums'
 import { ForbiddenError } from '@nestjs/apollo'
+import { Role } from 'prisma/generated/enums'
 
 @Injectable()
 export class GqlAdminGuard implements CanActivate {

@@ -1,7 +1,7 @@
 import { applyDecorators, UseGuards } from '@nestjs/common'
-import { Role } from 'prisma/generated/prisma/enums'
 import { GqlAdminGuard } from '../guards/admin.guard'
 import { GqlAuthGuard } from '../guards/auth.guard'
+import { Role } from 'prisma/generated/enums'
 
 export const Auth = (role: Role = Role.USER) => {
 	if (role === Role.ADMIN)

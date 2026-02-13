@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql'
 import { ObjectType } from '@nestjs/graphql'
 import { ID } from '@nestjs/graphql'
-import { Unit } from 'src/recipes/enums/recipe.enum'
+import { Unit } from 'src/recipes/recipe.enum'
 
 @ObjectType()
 export class IngredientModel {

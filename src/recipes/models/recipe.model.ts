@@ -1,10 +1,11 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql'
-import { Difficulty } from 'prisma/generated/graphql/prisma'
-import { User } from 'prisma/generated/graphql/user'
+
+import { UserModel } from 'src/users/models/user.model'
 import { NutritionFactModel } from './nutrition-fact.model'
-import { RecipeTagModel } from './recipe-tag.model'
-import { RecipeStepModel } from './recipe-step.model'
 import { RecipeIngredientModel } from './recipe-ingredient.model'
+import { RecipeStepModel } from './recipe-step.model'
+import { RecipeTagModel } from './recipe-tag.model'
+import { Difficulty } from '../recipe.enum'
 
 @ObjectType()
 export class RecipeModel {
@@ -38,20 +39,20 @@ export class RecipeModel {
 	@Field(() => Date, { nullable: false })
 	updatedAt!: Date
 
-	@Field(() => User, { nullable: false })
-	author?: User
+	@Field(() => UserModel, { nullable: false })
+	author?: UserModel
 
 	@Field(() => NutritionFactModel, { nullable: true })
 	nutritionFact?: NutritionFactModel | null
 
-	@Field(() => RecipeTagModel, { nullable: true })
+	@Field(() => [RecipeTagModel], { nullable: true })
 	tags?: Array<RecipeTagModel>
-
-	@Field(() => [RecipeIngredientModel], { nullable: true })
-	recipeIngredients?: Array<RecipeIngredientModel>
 
 	@Field(() => [RecipeStepModel], { nullable: true })
 	recipeSteps?: Array<RecipeStepModel>
+
+	@Field(() => [RecipeIngredientModel], { nullable: true })
+	recipeIngredients?: Array<RecipeIngredientModel>
 
 	@Field(() => Int, { nullable: true })
 	likes?: number

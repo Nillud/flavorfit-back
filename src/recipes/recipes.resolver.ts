@@ -1,12 +1,14 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+
 import { RecipesService } from './recipes.service'
+
+import { Role } from 'prisma/generated/enums'
 import { Auth } from 'src/auth/decorators/auth.decorator'
-import { Role } from 'prisma/generated/graphql/prisma'
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator'
+import { RecipesQueryInput } from './inputs/get-recipes-query.input'
+import { RecipeInput } from './inputs/recipe.input'
 import { RecipeModel } from './models/recipe.model'
 import { AdminRecipesService } from './admin-rescipes.service'
-import { RecipeInput } from './inputs/recipe.input'
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator'
-import type { RecipesQueryInput } from './inputs/get-recipes-query.input'
 
 @Resolver()
 export class RecipesResolver {
@@ -15,25 +17,34 @@ export class RecipesResolver {
 		private readonly adminRecipesService: AdminRecipesService
 	) {}
 
-	@Query(() => [RecipeModel], { name: 'recipes' })
-	@Auth()
+	// get all public with
+	// get by slug
+
+	@Query(() => [RecipeModel], {
+		name: 'recipes'
+	})
 	getAll(@Args('input') input: RecipesQueryInput) {
 		return this.recipesService.getAll(input)
 	}
 
-	@Query(() => [RecipeModel], { name: 'recipeBySlug' })
-	@Auth()
+	@Query(() => RecipeModel, {
+		name: 'recipeBySlug'
+	})
 	getBySlug(@Args('slug') slug: string) {
 		return this.recipesService.getBySlug(slug)
 	}
 
-	@Query(() => [RecipeModel], { name: 'adminRecipes' })
+	@Query(() => [RecipeModel], {
+		name: 'adminRecipes'
+	})
 	@Auth(Role.ADMIN)
 	getAllAdmin() {
 		return this.adminRecipesService.getAll()
 	}
 
-	@Query(() => RecipeModel, { name: 'recipeById' })
+	@Query(() => RecipeModel, {
+		name: 'recipeById'
+	})
 	@Auth(Role.ADMIN)
 	getById(@Args('id') id: string) {
 		return this.adminRecipesService.getById(id)
@@ -56,7 +67,7 @@ export class RecipesResolver {
 
 	@Mutation(() => RecipeModel)
 	@Auth(Role.ADMIN)
-	deleteRecipe(@Args('id') id: string) {
+	deleteRecipeById(@Args('id') id: string) {
 		return this.adminRecipesService.deleteById(id)
 	}
 }

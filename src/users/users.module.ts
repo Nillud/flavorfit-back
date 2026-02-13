@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { UsersService } from './users.service'
+import './user.enum'
 import { UsersResolver } from './users.resolver'
 import { PrismaModule } from 'src/prisma/prisma.module'
 

@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql'
-import { Unit } from 'src/recipes/enums/recipe.enum'
+import { Unit } from 'src/recipes/recipe.enum'
 
 @InputType()
 export class IngredientCreateInput {

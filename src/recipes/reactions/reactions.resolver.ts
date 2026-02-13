@@ -4,7 +4,7 @@ import { CommentModel } from './models/comment.model'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator'
 import { CommentCreateInput } from './inputs/comment.input'
-import { Role } from 'prisma/generated/prisma/enums'
+import { Role } from 'prisma/generated/enums'
 import { ToggleLikeResponse } from './models/toggle-like.response'
 
 @Resolver()

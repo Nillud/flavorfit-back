@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { hash } from 'argon2'
-import type { Prisma } from 'prisma/generated/prisma/client'
 import { PrismaService } from 'src/prisma/prisma.service'
 import type { UserUpdateInput } from './inputs/user-update.input'
+import type { Prisma } from 'prisma/generated/client'
 
 @Injectable()
 export class UsersService {
