@@ -1,15 +1,23 @@
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { AuthService } from './auth.service'
-import { AuthInput } from './auth.input'
+import { AuthInput } from './inputs/auth.input'
 import { AuthResponse } from './auth.interface'
 import type { IGqlContext } from 'src/app.interface'
 import { BadRequestException } from '@nestjs/common'
+import { VerifyCaptcha } from './decorators/captcha.decorator'
+import { AuthAccountService } from './auth-account.service'
+import { RequestPasswordResetInput } from './inputs/reset-password-request.input'
+import { ResetPasswordInput } from './inputs/reset-password.input'
 
 @Resolver()
 export class AuthResolver {
-	constructor(private authService: AuthService) {}
+	constructor(
+		private authService: AuthService,
+		private authAccountService: AuthAccountService
+	) {}
 
 	@Mutation(() => AuthResponse)
+	@VerifyCaptcha()
 	async login(@Args('data') input: AuthInput, @Context() { res }: IGqlContext) {
 		const { refreshToken, accessToken, ...response } =
 			await this.authService.login(input)
@@ -21,6 +29,7 @@ export class AuthResolver {
 	}
 
 	@Mutation(() => AuthResponse)
+	@VerifyCaptcha()
 	async register(
 		@Args('data') input: AuthInput,
 		@Context() { res }: IGqlContext
@@ -55,12 +64,29 @@ export class AuthResolver {
 	}
 
 	@Mutation(() => Boolean)
+	async verifyEmail(@Args('token', { type: () => String }) token: string) {
+		return this.authAccountService.verifyEmail(token)
+	}
+
+	@Mutation(() => Boolean)
+	@VerifyCaptcha()
+	async requestPasswordReset(@Args('data') input: RequestPasswordResetInput) {
+		return this.authAccountService.requestPasswordReset(input.email)
+	}
+
+	@Mutation(() => Boolean)
+	@VerifyCaptcha()
+	async resetPassword(@Args('data') input: ResetPasswordInput) {
+		return this.authAccountService.resetPassword(input.token, input.newPassword)
+	}
+
+	@Mutation(() => Boolean)
 	logout(@Context() { res, req }: IGqlContext) {
 		const initialRefreshToken = req.cookies[this.authService.REFRESH_TOKEN_NAME]
 
 		this.authService.toggleAccessTokenCookie(res, null)
 		this.authService.toggleRefreshTokenCookie(res, null)
-		
+
 		if (!initialRefreshToken) {
 			throw new BadRequestException('Refresh token is missing')
 		}

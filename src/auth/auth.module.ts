@@ -9,6 +9,8 @@ import { UsersModule } from 'src/users/users.module'
 import { JwtStrategy } from './strategies/jwt.strategy'
 import { PassportModule } from '@nestjs/passport'
 import './auth.enum'
+import { EmailModule } from 'src/email/email.module'
+import { AuthAccountService } from './auth-account.service'
 
 @Module({
 	imports: [
@@ -19,8 +21,9 @@ import './auth.enum'
 			inject: [ConfigService],
 			useFactory: getJwtConfig
 		}),
-		UsersModule
+		UsersModule,
+		EmailModule
 	],
-	providers: [JwtStrategy, AuthService, AuthResolver]
+	providers: [JwtStrategy, AuthService, AuthAccountService, AuthResolver]
 })
 export class AuthModule {}

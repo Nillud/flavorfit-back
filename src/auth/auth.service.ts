@@ -6,12 +6,14 @@ import {
 import { ConfigService } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { AuthInput } from './auth.input'
+import { AuthInput } from './inputs/auth.input'
 import { hash, verify } from 'argon2'
 import { TAuthTokenData } from './auth.interface'
 import { UsersService } from 'src/users/users.service'
 import { Response } from 'express'
 import { isDev } from 'src/utils/is-dev.util'
+import { generateToken } from 'src/utils/generate-token.util'
+import { EmailService } from 'src/email/email.service'
 
 @Injectable()
 export class AuthService {
@@ -19,7 +21,8 @@ export class AuthService {
 		private prisma: PrismaService,
 		private configService: ConfigService,
 		private jwt: JwtService,
-		private usersService: UsersService
+		private usersService: UsersService,
+		private emailService: EmailService
 	) {}
 
 	private readonly EXPIRE_HOURS_ACCESS_TOKEN = 1
@@ -37,14 +40,23 @@ export class AuthService {
 				throw new BadRequestException('User with this email already exists')
 			}
 
+			const emailVerificationToken = generateToken()
+
 			const user = await this.prisma.user.create({
 				data: {
 					email: input.email,
-					password: await hash(input.password)
+					password: await hash(input.password),
+					emailVerificationToken,
+					emailVerificationTokenExpiresAt: new Date(Date.now() + 60 * 60 * 1000)
 				}
 			})
 
 			const tokens = this._generateTokens({ id: user.id, role: user.role })
+
+			const verificationUrl = `${this.configService.get('CLIENT_URL')}/verify-email?token=${emailVerificationToken}`
+
+			// await this.emailService.sendVerificationEmail(user.email, verificationUrl)
+			await this.emailService.sendVerificationEmail('agadullin.linar@mail.ru', verificationUrl)
 
 			return { user, ...tokens }
 		} catch (error) {
@@ -118,7 +130,9 @@ export class AuthService {
 			response: res,
 			name: this.ACCESS_TOKEN_NAME,
 			token,
-			expires: new Date(Date.now() + this.EXPIRE_HOURS_ACCESS_TOKEN * 60 * 60 * 1000)
+			expires: new Date(
+				Date.now() + this.EXPIRE_HOURS_ACCESS_TOKEN * 60 * 60 * 1000
+			)
 		})
 	}
 
@@ -127,7 +141,9 @@ export class AuthService {
 			response: res,
 			name: this.REFRESH_TOKEN_NAME,
 			token,
-			expires: new Date(Date.now() + this.EXPIRE_DAYS_REFRESH_TOKEN * 24 * 60 * 60 * 1000)
+			expires: new Date(
+				Date.now() + this.EXPIRE_DAYS_REFRESH_TOKEN * 24 * 60 * 60 * 1000
+			)
 		})
 	}
 
