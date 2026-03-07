@@ -3,6 +3,7 @@ model User {
 
     role     Role   @default(USER)
     email    String @unique
+    avatarUrl String? @map("avatar_url")
     password String
 
     isEmailVerified                 Boolean   @default(false) @map("is_email_verified")

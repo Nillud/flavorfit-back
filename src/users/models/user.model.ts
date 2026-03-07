@@ -11,6 +11,9 @@ export class UserModel {
 	@Field(() => String, { nullable: false })
 	email!: string
 
+	@Field(() => String)
+	avatarUrl?: string | null
+
 	@Field(() => Role, { defaultValue: 'USER', nullable: false })
 	role!: `${Role}`
 
