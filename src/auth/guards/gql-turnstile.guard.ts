@@ -5,7 +5,7 @@ import {
 	type ExecutionContext
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import type { TurnstileService } from 'nest-cloudflare-turnstile/dist/services/turnstile.service'
+import { TurnstileService } from 'nest-cloudflare-turnstile/dist/services/turnstile.service'
 import type { IGqlContext } from 'src/app.interface'
 
 interface ITurnstileResponse {
