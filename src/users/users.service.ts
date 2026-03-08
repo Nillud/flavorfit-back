@@ -50,7 +50,7 @@ export class UsersService {
 					profile: {
 						upsert: {
 							create: profile as Prisma.ProfileCreateWithoutUserInput,
-							update: profile as Prisma.ProfileCreateWithoutUserInput
+							update: profile as Prisma.ProfileUpdateWithoutUserInput
 						}
 					}
 				}
@@ -83,7 +83,8 @@ export class UsersService {
 				...hashedPassword,
 				...updateProfile,
 				...updateMeasurement,
-				email: data.email
+				email: data.email,
+				avatarUrl: data.avatarUrl
 			},
 			include: {
 				measurement: true,
